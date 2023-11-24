@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "kQxrwakVEFNstr1OSSQJ/inOfe7HAqBe7lolVHMRqnA=",
+  "Source": "GerenciadorDeLivros.API",
+  "BasePath": "_content/GerenciadorDeLivros.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
