@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj": {}
+    "C:\\dev\\Gerenciador-De-Livros\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj": {}
   },
   "projects": {
-    "C:\\dev\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj": {
+    "C:\\dev\\Gerenciador-De-Livros\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj",
+        "projectUniqueName": "C:\\dev\\Gerenciador-De-Livros\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj",
         "projectName": "GerenciadorDeLivros.API",
-        "projectPath": "C:\\dev\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj",
+        "projectPath": "C:\\dev\\Gerenciador-De-Livros\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj",
         "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\obj\\",
+        "outputPath": "C:\\dev\\Gerenciador-De-Livros\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

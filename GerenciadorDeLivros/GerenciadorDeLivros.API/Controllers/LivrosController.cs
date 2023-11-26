@@ -9,9 +9,9 @@ namespace GerenciadorDeLivros.API.Controllers;
 [ApiController]
 public class LivrosController : ControllerBase
 {
-    private readonly LivrosDbContext _context;
+    private readonly GerenciadorLivrosDbContext _context;
 
-    public LivrosController(LivrosDbContext context)
+    public LivrosController(GerenciadorLivrosDbContext context)
     {
         _context = context;
     }

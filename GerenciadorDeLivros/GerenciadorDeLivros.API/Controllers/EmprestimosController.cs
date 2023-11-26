@@ -9,9 +9,9 @@ namespace GerenciadorDeLivros.API.Controllers;
 [ApiController]
 public class EmprestimosController : ControllerBase
 {
-    private readonly LivrosDbContext _context;
+    private readonly GerenciadorLivrosDbContext _context;
 
-    public EmprestimosController(LivrosDbContext context)
+    public EmprestimosController(GerenciadorLivrosDbContext context)
     {
         _context = context;
     }
@@ -38,6 +38,14 @@ public class EmprestimosController : ControllerBase
     [HttpPost]
     public IActionResult CriarEmprestimo(Emprestimo emprestimo)
     {
+        // Consultar ids
+        var livro = _context.Livros.SingleOrDefault(l => l.Id ==  emprestimo.IdLivro);
+        var usuario = _context.Usuarios.SingleOrDefault(u => u.Id == emprestimo.IdUsuario);
+
+        if (livro is null || usuario is null)
+        {
+            return NotFound("Livro ou Usuario não existente!");
+        }
         _context.Emprestimos.Add(emprestimo);
 
         return CreatedAtAction(nameof(ConsultarUmEmprestimo), new { id = emprestimo.Id }, emprestimo);

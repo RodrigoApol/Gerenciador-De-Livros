@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KJh7gpxOfXjnfLvhVIw/kzT24kf/QtihY7Qzbpxld0PG9cYOVKf8g2N8Ml+zwiXzluPWdoVGO3uBgigw277vdQ==",
+  "dgSpecHash": "ivuvZDi87Qq6zwW4o9wSFgXQ1fAxUyM/tBIb7pZidE9zfvXU3lldsPRaHcZNlXKo9Iez4dsXmUUZSdfKGa7HpA==",
   "success": true,
-  "projectFilePath": "C:\\dev\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj",
+  "projectFilePath": "C:\\dev\\Gerenciador-De-Livros\\GerenciadorDeLivros\\GerenciadorDeLivros.API\\GerenciadorDeLivros.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rodri\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.13\\microsoft.aspnetcore.openapi.7.0.13.nupkg.sha512",
     "C:\\Users\\rodri\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
