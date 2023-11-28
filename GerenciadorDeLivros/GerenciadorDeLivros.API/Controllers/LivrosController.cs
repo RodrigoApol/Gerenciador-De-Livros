@@ -19,7 +19,7 @@ public class LivrosController : ControllerBase
     [HttpGet]
     public IActionResult ConsultadarTodosLivros()
     {
-        var livro = _context.Livros.ToList();
+        var livro = _context.Livros;
 
         return Ok(livro);
     }
@@ -27,18 +27,19 @@ public class LivrosController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult ConsultarUmLivro(int id)
     {
-        var resultado = _context.Livros.SingleOrDefault(l => l.Id == id);
+        var livro = _context.Livros.SingleOrDefault(l => l.Id == id);
 
-        if (resultado is null)
+        if (livro is null)
             return NotFound();
 
-        return Ok(resultado);
+        return Ok(livro);
     }
 
     [HttpPost]
     public IActionResult AdicionarLivro(Livro livro)
     {
         _context.Livros.Add(livro);
+        _context.SaveChanges();
 
         return CreatedAtAction(
             nameof(ConsultarUmLivro),
@@ -56,6 +57,9 @@ public class LivrosController : ControllerBase
 
         livroExistente.AtualizarLivro(livro.Titulo, livro.Autor, livro.Resumo, livro.Isbn, livro.AnoPublicacao);
 
+        _context.Update(livroExistente);
+        _context.SaveChanges();
+
         return NoContent();
     }
 
@@ -68,6 +72,7 @@ public class LivrosController : ControllerBase
             return NotFound();
 
         _context.Livros.Remove(livro);
+        _context.SaveChanges();
 
         return NoContent();
     }

@@ -2,9 +2,8 @@
 
 public class Usuario
 {
-    public Usuario(int id, string nome, string email)
+    public Usuario(string nome, string email)
     {
-        Id = id;
         Nome = nome;
         Email = email;
     }

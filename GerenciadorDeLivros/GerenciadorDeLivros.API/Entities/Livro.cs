@@ -2,9 +2,8 @@
 
 public class Livro
 {
-    public Livro(int id, string titulo, string autor, string resumo, int isbn, string anoPublicacao)
+    public Livro(string titulo, string autor, string resumo, int isbn, string anoPublicacao)
     {
-        Id = id;
         Titulo = titulo;
         Autor = autor;
         Resumo = resumo;

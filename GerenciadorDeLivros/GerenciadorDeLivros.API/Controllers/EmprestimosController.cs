@@ -2,6 +2,7 @@
 using GerenciadorDeLivros.API.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorDeLivros.API.Controllers;
 
@@ -19,7 +20,10 @@ public class EmprestimosController : ControllerBase
     [HttpGet]
     public IActionResult ConsultarEmprestimos()
     {
-        var emprestimos = _context.Emprestimos;
+        var emprestimos = _context
+            .Emprestimos
+            .Include(e => e.Livro)
+            .Include(e => e.Usuario);
 
         return Ok(emprestimos);
     }
@@ -27,7 +31,11 @@ public class EmprestimosController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult ConsultarUmEmprestimo(int id)
     {
-        var emprestimo = _context.Emprestimos.SingleOrDefault(e => e.Id == id);
+        var emprestimo = _context
+            .Emprestimos
+            .Include(e => e.Livro)
+            .Include(e => e.Usuario)
+            .SingleOrDefault(e => e.Id == id);
 
         if (emprestimo is null)
             return NotFound();
@@ -39,7 +47,7 @@ public class EmprestimosController : ControllerBase
     public IActionResult CriarEmprestimo(Emprestimo emprestimo)
     {
         // Consultar ids
-        var livro = _context.Livros.SingleOrDefault(l => l.Id ==  emprestimo.IdLivro);
+        var livro = _context.Livros.SingleOrDefault(l => l.Id == emprestimo.IdLivro);
         var usuario = _context.Usuarios.SingleOrDefault(u => u.Id == emprestimo.IdUsuario);
 
         if (livro is null || usuario is null)
@@ -47,8 +55,12 @@ public class EmprestimosController : ControllerBase
             return NotFound("Livro ou Usuario não existente!");
         }
         _context.Emprestimos.Add(emprestimo);
+        _context.SaveChanges();
 
-        return CreatedAtAction(nameof(ConsultarUmEmprestimo), new { id = emprestimo.Id }, emprestimo);
+        return CreatedAtAction(
+            nameof(ConsultarUmEmprestimo), 
+            new { id = emprestimo.Id }, 
+            emprestimo);
     }
 
     [HttpPut("{id}")]
@@ -60,6 +72,9 @@ public class EmprestimosController : ControllerBase
             return NotFound();
 
         emprestimoExistente.AtualizarEmprestimo(emprestimo.IdUsuario, emprestimo.IdUsuario);
+        
+        _context.Update(emprestimoExistente);
+        _context.SaveChanges();
 
         return NoContent();
     }
@@ -73,6 +88,7 @@ public class EmprestimosController : ControllerBase
             return NotFound();
 
         _context.Emprestimos.Remove(emprestimo);
+        _context.SaveChanges();
 
         return NoContent();
     }

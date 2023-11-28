@@ -39,6 +39,7 @@ public class UsuariosController : ControllerBase
     public IActionResult AdicionarUsuario(Usuario usuario)
     {
         _context.Usuarios.Add(usuario);
+        _context.SaveChanges();
 
         return CreatedAtAction(
             nameof(ConsultarUmUsuario), 
@@ -56,6 +57,9 @@ public class UsuariosController : ControllerBase
 
         usuarioExistente.AtualizarUsuario(usuario.Nome, usuario.Email);
 
+        _context.Update(usuarioExistente);
+        _context.SaveChanges();
+
         return NoContent();
     }
 
@@ -68,6 +72,7 @@ public class UsuariosController : ControllerBase
             return NotFound();
 
         _context.Usuarios.Remove(usuario);
+        _context.SaveChanges(); 
 
         return NoContent();
     }
