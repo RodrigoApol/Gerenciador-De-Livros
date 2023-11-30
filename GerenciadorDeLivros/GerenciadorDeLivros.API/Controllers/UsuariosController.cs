@@ -1,5 +1,8 @@
 ﻿using GerenciadorDeLivros.API.Context;
 using GerenciadorDeLivros.API.Entities;
+using GerenciadorDeLivros.API.MappingViewModels;
+using GerenciadorDeLivros.API.Models.InputModel;
+using GerenciadorDeLivros.API.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +24,9 @@ public class UsuariosController : ControllerBase
     {
         var usuarios = _context.Usuarios;
 
-        return Ok(usuarios);
+        var usuariosViewModel = usuarios.ParaViewModel();
+
+        return Ok(usuariosViewModel);
     }
 
     [HttpGet("{id}")]
@@ -32,12 +37,16 @@ public class UsuariosController : ControllerBase
         if (usuario is null)
             return NotFound();
 
-        return Ok(usuario);
+        var usuarioViewModel = usuario.ParaViewModelComId();
+
+        return Ok(usuarioViewModel);
     }
 
     [HttpPost]
-    public IActionResult AdicionarUsuario(Usuario usuario)
+    public IActionResult AdicionarUsuario(UsuarioInputModel usuarioInputModel)
     {
+        var usuario = new Usuario(usuarioInputModel.Nome, usuarioInputModel.Email);
+
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
 
@@ -48,14 +57,14 @@ public class UsuariosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult AtualizarUsuario(Usuario usuario, int id)
+    public IActionResult AtualizarUsuario(UsuarioInputModel usuarioInputModel, int id)
     {
         var usuarioExistente = _context.Usuarios.SingleOrDefault(u => u.Id == id);
 
         if (usuarioExistente is null)
             return NotFound();
 
-        usuarioExistente.AtualizarUsuario(usuario.Nome, usuario.Email);
+        usuarioExistente.AtualizarUsuario(usuarioInputModel.Nome, usuarioInputModel.Email);
 
         _context.Update(usuarioExistente);
         _context.SaveChanges();

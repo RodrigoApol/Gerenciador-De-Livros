@@ -1,5 +1,7 @@
 ﻿using GerenciadorDeLivros.API.Context;
 using GerenciadorDeLivros.API.Entities;
+using GerenciadorDeLivros.API.MappingViewModels;
+using GerenciadorDeLivros.API.Models.InputModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,9 +21,11 @@ public class LivrosController : ControllerBase
     [HttpGet]
     public IActionResult ConsultadarTodosLivros()
     {
-        var livro = _context.Livros;
+        var livros = _context.Livros;
 
-        return Ok(livro);
+        var livrosViewModel = livros.ParaViewModel();
+
+        return Ok(livrosViewModel);
     }
 
     [HttpGet("{id}")]
@@ -32,12 +36,21 @@ public class LivrosController : ControllerBase
         if (livro is null)
             return NotFound();
 
-        return Ok(livro);
+        var livroViewModel = livro.ParaViewModelComId();
+
+        return Ok(livroViewModel);
     }
 
     [HttpPost]
-    public IActionResult AdicionarLivro(Livro livro)
+    public IActionResult AdicionarLivro(LivroInputModel livroInputModel)
     {
+        var livro = new Livro(
+            livroInputModel.Titulo, 
+            livroInputModel.Autor, 
+            livroInputModel.Resumo,
+            livroInputModel.Isbn,
+            livroInputModel.AnoPublicacao);
+
         _context.Livros.Add(livro);
         _context.SaveChanges();
 
@@ -48,14 +61,19 @@ public class LivrosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult AtualizarLivro(int id, Livro livro)
+    public IActionResult AtualizarLivro(int id, LivroInputModel livroInputModel)
     {
         var livroExistente = _context.Livros.SingleOrDefault(l => l.Id == id);
 
         if (livroExistente is null)
             return NotFound();
 
-        livroExistente.AtualizarLivro(livro.Titulo, livro.Autor, livro.Resumo, livro.Isbn, livro.AnoPublicacao);
+        livroExistente.AtualizarLivro(
+            livroInputModel.Titulo, 
+            livroInputModel.Autor, 
+            livroInputModel.Resumo, 
+            livroInputModel.Isbn, 
+            livroInputModel.AnoPublicacao);
 
         _context.Update(livroExistente);
         _context.SaveChanges();

@@ -1,5 +1,7 @@
 ﻿using GerenciadorDeLivros.API.Context;
 using GerenciadorDeLivros.API.Entities;
+using GerenciadorDeLivros.API.MappingViewModels;
+using GerenciadorDeLivros.API.Models.InputModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +27,9 @@ public class EmprestimosController : ControllerBase
             .Include(e => e.Livro)
             .Include(e => e.Usuario);
 
-        return Ok(emprestimos);
+        var emprestimosViewModel = emprestimos.ParaViewModel();
+
+        return Ok(emprestimosViewModel);
     }
 
     [HttpGet("{id}")]
@@ -40,20 +44,25 @@ public class EmprestimosController : ControllerBase
         if (emprestimo is null)
             return NotFound();
 
-        return Ok(emprestimo);
+        var emprestimoViewModel = emprestimo.ParaViewModelComId();
+
+        return Ok(emprestimoViewModel);
     }
 
     [HttpPost]
-    public IActionResult CriarEmprestimo(Emprestimo emprestimo)
+    public IActionResult CriarEmprestimo(EmprestimoInputModel emprestimoInputModel)
     {
         // Consultar ids
-        var livro = _context.Livros.SingleOrDefault(l => l.Id == emprestimo.IdLivro);
-        var usuario = _context.Usuarios.SingleOrDefault(u => u.Id == emprestimo.IdUsuario);
+        var livro = _context.Livros.SingleOrDefault(l => l.Id == emprestimoInputModel.IdLivro);
+        var usuario = _context.Usuarios.SingleOrDefault(u => u.Id == emprestimoInputModel.IdUsuario);
 
         if (livro is null || usuario is null)
         {
             return NotFound("Livro ou Usuario não existente!");
         }
+
+        var emprestimo = new Emprestimo(emprestimoInputModel.IdUsuario, emprestimoInputModel.IdLivro);
+
         _context.Emprestimos.Add(emprestimo);
         _context.SaveChanges();
 
@@ -64,14 +73,14 @@ public class EmprestimosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult AtualizarEmprestimo(int id, Emprestimo emprestimo)
+    public IActionResult AtualizarEmprestimo(int id, EmprestimoInputModel emprestimoInputModel)
     {
         var emprestimoExistente = _context.Emprestimos.SingleOrDefault(e => e.Id == id);
 
         if (emprestimoExistente is null)
             return NotFound();
 
-        emprestimoExistente.AtualizarEmprestimo(emprestimo.IdUsuario, emprestimo.IdUsuario);
+        emprestimoExistente.AtualizarEmprestimo(emprestimoInputModel.IdUsuario, emprestimoInputModel.IdUsuario);
         
         _context.Update(emprestimoExistente);
         _context.SaveChanges();

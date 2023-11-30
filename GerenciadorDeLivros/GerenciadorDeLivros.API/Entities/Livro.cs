@@ -2,7 +2,7 @@
 
 public class Livro
 {
-    public Livro(string titulo, string autor, string resumo, int isbn, string anoPublicacao)
+    public Livro(string titulo, string autor, string resumo, string isbn, int anoPublicacao)
     {
         Titulo = titulo;
         Autor = autor;
@@ -15,10 +15,10 @@ public class Livro
     public string Titulo { get; private set; }
     public string Autor { get; private set; }
     public string Resumo { get; private set; }
-    public int Isbn { get; private set; }
-    public string AnoPublicacao { get; private set; }
+    public string Isbn { get; private set; }
+    public int AnoPublicacao { get; private set; }
 
-    public void AtualizarLivro(string titulo, string autor, string resumo, int isbn, string anoPublicacao)
+    public void AtualizarLivro(string titulo, string autor, string resumo, string isbn, int anoPublicacao)
     {
         Titulo = titulo;
         Autor = autor;
