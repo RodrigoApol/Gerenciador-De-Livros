@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<GerenciadorLivrosDbContext>(o => o.UseInMemoryDatabase("GerenciadorLivros"));
+var connectionString = builder.Configuration.GetConnectionString("GerenciadorDeLivros");
+
+builder.Services.AddDbContext<GerenciadorLivrosDbContext>(o => o.UseSqlServer(connectionString));
+// builder.Services.AddDbContext<GerenciadorLivrosDbContext>(o => o.UseInMemoryDatabase("GerenciadorLivros"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

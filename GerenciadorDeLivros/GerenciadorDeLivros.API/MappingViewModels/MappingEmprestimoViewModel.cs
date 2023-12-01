@@ -11,8 +11,8 @@ public static class MappingEmprestimoViewModel
         {
             UsuarioNome = e.Usuario.Nome,
             LivroTitulo = e.Livro.Titulo,
-            DataEmprestimo = e.DataEmprestimo,
-            DataDevolucao = e.DataDevolucao,
+            DataEmprestimo = e.DataEmprestimo.ToString("dd/MM/yyyy"),
+            DataDevolucao = e.DataDevolucao.ToString("dd/MM/yyyy"),
         });
     }
 
@@ -20,7 +20,7 @@ public static class MappingEmprestimoViewModel
     {
         UsuarioNome = emprestimo.Usuario.Nome,
         LivroTitulo = emprestimo.Livro.Titulo,
-        DataEmprestimo = emprestimo.DataEmprestimo,
-        DataDevolucao = emprestimo.DataDevolucao,
+        DataEmprestimo = emprestimo.DataEmprestimo.ToString("dd/MM/yyyy"),
+        DataDevolucao = emprestimo.DataDevolucao.ToString("dd/MM/yyyy"),
     };
 }

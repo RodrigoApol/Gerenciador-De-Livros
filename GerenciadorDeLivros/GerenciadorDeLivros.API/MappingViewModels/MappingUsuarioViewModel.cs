@@ -9,14 +9,12 @@ public static class MappingUsuarioViewModel
     {
         return usuarios.Select(usuario => new UsuarioViewModel
         {
-            Nome = usuario.Nome,
-            Email = usuario.Email,
+            Nome = usuario.Nome
         });
     }
 
     public static UsuarioViewModel ParaViewModelComId(this Usuario usuario) => new UsuarioViewModel
     {
-        Nome = usuario.Nome,
-        Email = usuario.Email
+        Nome = usuario.Nome
     };
 }
